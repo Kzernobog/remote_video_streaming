@@ -9,7 +9,7 @@ import numpy as np
 # Connect a client socket to my_server:8000 (change my_server to the
 # hostname of your server)
 client_socket = socket.socket()
-client_socket.connect(('0.0.0.0', 8000))
+client_socket.connect(('192.168.3.13', 8000))
 print("server found....")
 
 sct = mss()
@@ -51,7 +51,8 @@ try:
         sct_img = sct.grab(monitor)
         image_bytes = sct_img.rgb
         frame = np.fromstring(image_bytes, dtype=np.uint8).reshape(1280, 1024, 3)
-        encoded, frame = cv2.imencode('.jpg', frame)
+        frame = cv2.resize(frame, (832, 832))
+        encoded, frame  = cv2.imencode('.jpg', frame)
         frame = bytes(frame)
         #print(frame)
         stream = io.BytesIO(frame)
