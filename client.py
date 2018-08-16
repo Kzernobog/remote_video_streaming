@@ -73,6 +73,8 @@ try:
     # Write a length of zero to the stream to signal we're done
     print("0 sent")
     connection.write(struct.pack('<L', 0))
+except KeyboardInterrupt:
+    connection.write(struct.pack('<L', 0))
 finally:
     end = time.time()
     print("Sending FPS = ", count/(end-start))
